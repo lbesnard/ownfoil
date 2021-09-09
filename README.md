@@ -44,6 +44,10 @@ services:
       # - ./app:/app
       # Uncomment to setup basic auth
       # - ./nginx:/etc/nginx
+    # uncomment to have the full host url added to each game/dir
+    #environment:
+    #  - HOST_URL=http://HOST_IP:8000
+
     ports:
       - "8000:80"
 ```

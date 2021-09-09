@@ -54,11 +54,15 @@ while True:
         size = round(os.path.getsize(game))
         games.append(
             {
-                'url': game,
+                'url': '/'.join(s.strip('/') for s in [os.getenv('HOST_URL', '').strip('"'), os.path.relpath(game, path)]),
                 'size': size
             })
 
-    shop['directories'] = dirs
+    dirs_url = []
+    for dir in dirs:
+        dirs_url.append('/'.join(s.strip('/') for s in [os.getenv('HOST_URL', '').strip('"'), os.path.relpath(dir, path)]) + '/')
+
+    shop['directories'] = dirs_url
     shop['files'] = games
 
     for a in ['json', 'tfl']:
@@ -67,7 +71,7 @@ while True:
             with open(out_file, 'w') as f:
                 json.dump(shop, f, indent=4)
             logging.info(f'Successfully wrote {out_file}')
-            
+
         except Exception as e:
             logging.error(f'Failed to write {out_file}, error was:\n{e}')
 

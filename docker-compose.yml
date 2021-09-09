@@ -4,6 +4,9 @@ services:
   ownfoil:
     container_name: ownfoil
     image: a1ex4/ownfoil
+    environment:
+      # append host url value to the path of games in the tfl and json files
+      - HOST_URL:"http://localhost:8000"
     volumes:
       - /your/game/directory:/games
       # Uncomment if you want to edit and persist the app configuration
